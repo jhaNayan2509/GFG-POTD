@@ -1,0 +1,49 @@
+class GfG
+{
+    //Function to remove duplicates from sorted linked list.
+    Node removeDuplicates(Node head)
+    {
+
+      if(head==null||head.next==null) return head;
+      
+	    Map<Integer,Node> map = new HashMap<>();
+	    
+	    Node curr = head;
+	    
+	    while(curr!=null){
+	        if(map.containsKey(curr.data)){
+	            map.get(curr.data).next = curr.next;
+	        }
+	        
+	        else if(!map.containsKey(curr.data)){
+	            map.put(curr.data,curr);
+	        }
+	        curr=curr.next;
+	    }
+	    return head;
+    }
+}
+
+/*
+JAVA HashMap Solution:
+
+T.C.: O(N) S.C.:O(N)
+
+Approach: 
+1. Here we are using a HashMap which will store the node data and nodes as key and value pair.
+2. Basically what we want to do is just traverse the LinkedList and check whether the current node data is present in the hashmap or not.
+3. If yes, then just update the current node reference which is present as value in the hashmap to the reference to the node which is next to current node.
+4. If no, then just put the current node data and curr node into the hashmap.
+5. Everytime increase the current pointer.
+6. Return Head, and Be Happy Because we have got the solution.
+
+Note: Though this approach will pass all test cases but it is not the optimized approach, because it is given in the question that we have to solve
+this problem without using extra space.
+
+
+
+
+
+
+
+*/
