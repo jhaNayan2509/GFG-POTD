@@ -1,0 +1,45 @@
+/*
+
+JAVA Simple Approach:
+
+1.Simply traverse the Linked List and check if the current node data is less than the next node or not.
+2.
+
+  >If yes, then update the data of the current node with the value of the next node data.
+
+   >Update the current node next reference with next reference of the node next to it.
+
+   >As we don't want to loose the track of our head pointer, so update curr with head.
+
+
+3. If no, then just move the current pointer to next node.
+
+4.Return Head and Smile , bcoz you have got the solution!!
+
+5.T.C.: O(N) S.C.:O(1)
+
+--------------------Please Upvote if you like this Solution------------------
+
+>>Java O(N) solution : Easy Few Lines Solution(Optimized One) :
+*/
+
+class Solution
+{
+    Node compute(Node head)
+    {
+        Node curr = head;
+        
+        while(curr.next!=null){
+            if(curr.data<curr.next.data){
+                curr.data = curr.next.data;
+                curr.next = curr.next.next;
+                curr = head;
+            }
+            else
+            {
+                curr = curr.next;
+            }
+        }
+        return head;
+    }
+}
