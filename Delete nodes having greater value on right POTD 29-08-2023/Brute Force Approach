@@ -1,0 +1,46 @@
+/*
+JAVA SIMPLE BRUTE_FORCE APPROACH(Using Extra Space: Stack)
+
+Approach:
+
+1.Here what we simply do is create a stack which is basically used to contain all the nodes which will come after 
+  deleting nodes as per the given condition i.e. deleting nodes which have some greater element than it in right side of that
+  node.
+2. Simply traverse the LinkedList and run a while loop inside it and check if stack is empty or not.
+3. If stack is not empty and top element of stack is less than the current node data, just pop the top element till the while
+   condition not fails.
+4. Coming out of inner while loop just put the current node data into the stack and move the current pointer to the next.
+5. After traversing whole LinkedList, now creates a new head for new LinkedList and start the head1 pointer with null.
+6. Then untill stack is not empty, just add nodes which we will get by poping elements from stack in the beginning of LinkedList.
+7. In this way, whole new LinkedList will get created with the nodes that is our desired answer.
+8. Return head of this new LinkedList i.e. head1 and smile because you have got the solution!
+
+*/
+
+class Solution
+{
+    Node compute(Node head)
+    {
+        Node curr = head;
+        
+        Stack<Integer> st = new Stack<>();
+        
+        while(curr!=null){
+            
+            while(st.isEmpty()==false && st.peek()<curr.data){
+                st.pop();
+            }
+            st.push(curr.data);
+            curr=curr.next;
+        }
+        
+        Node head1 = null;
+        
+        while(st.isEmpty()==false){
+            Node newNode = new Node(st.pop());
+            newNode.next = head1;
+            head1=newNode;
+        }
+        return head1;
+    }
+}
