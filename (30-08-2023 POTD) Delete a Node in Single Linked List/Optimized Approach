@@ -22,7 +22,7 @@ if yes then just update the previous node next reference with current node next 
  
 
 4.With every iteration, move prev pointer to  the current one, and curr pointer to the next one, 
-increase count by 1.Go on iterating untill we meet the termination condition .i.e. curr pointer pointing to nulls or on encounter the break statement.
+increase count by 1.Go on iterating untill we meet the termination condition .i.e. curr pointer pointing to nulls or on encountering the break statement.
 
  
 
