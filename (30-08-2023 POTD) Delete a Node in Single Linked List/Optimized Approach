@@ -1,0 +1,70 @@
+/*
+
+JAVA Simple Approach: T.C.: O(N) S.C.:O(1)
+
+ 
+
+1.Simply traverse the Linked List and check if head equals to null,then return null. Or if x equals to 1, 
+then update head with head.next means make the next node the head of the LinkedList,because first node is deleted.Then return the head.
+
+2.Else:
+
+ >Declare a count variable named 'i' here and initialise with 1.
+
+ > Declare two pointers curr and prev which will initialise with head node only, 
+basically these two pointers used to keep track of previous and current element as we traverse over the linked list.
+
+ 
+
+3.Now, simply traverse the linked list using while loop, and check if count varible i becomes equal to x or not, 
+if yes then just update the previous node next reference with current node next reference , in this way current node(desired node) is deleted. So, just break the loop.
+
+ 
+
+4.With every iteration, move prev pointer to  the current one, and curr pointer to the next one, 
+increase count by 1.Go on iterating untill we meet the termination condition .i.e. curr pointer pointing to nulls or on encounter the break statement.
+
+ 
+
+5.Return Head and Smile , because you have got the solution!!
+
+ 
+
+6.T.C.: O(N) S.C.:O(1)
+
+>>Java O(N) solution : Easy Few Lines Solution(Optimized One) :
+
+*/
+
+ 
+
+ 
+
+class GfG
+{
+    Node deleteNode(Node head, int x)
+    {
+     
+    if(head==null) return null;
+     
+    if(x==1){
+         head=head.next;
+         return head;
+    }
+     
+    int i=1;
+    Node curr = head;
+    Node prev = head;
+    while(curr!=null){
+         if(i==x){
+             prev.next=curr.next;
+             break;
+         }
+         prev=curr;
+         curr=curr.next;
+         i++;
+    }
+  return head;
+    }
+}
+ 
