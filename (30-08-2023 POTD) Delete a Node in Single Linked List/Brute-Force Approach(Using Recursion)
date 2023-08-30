@@ -1,0 +1,50 @@
+/*
+JAVA BRUTE-FORCE APPROACH(USING RECURSION):  T.C.: O(x) S.C.: O(x)  where x -> position of node which is need to be deleted
+
+1.Basic idea of Recursion is to solve large problems by dividing it into smaller sub-problems, then combine them to get final result.
+
+2.The same thing we will do here, what we basically do is just call the function recursively for different nodes and for decreased value of x.
+
+3.The logic behind this approach is simple: You just have to do the delete operation in smaller linked list, or we can say we will just perform the delete operation 
+for subparts of linked list, each time we will consider next element and make them head in the recursive function, and in the place of x we will put x-1.
+
+4. In this way, for every smaller part of Linked List we will traverse only xth times, the value x will be smaller for smaller linked list , 
+every time only x nodes are being
+considered which is corresponding to this current head of the smaller LinkedList.
+
+5.Finally we will put two base cases to stop the recursive calls: (i) if head == null then just return null.  
+(ii) If (x==1), so we have to delete the first node in this case,
+hence, update the head with head.next , in this way we will get our new head, so just replace it.
+
+6. We have seen Time Complexity: O(x),
+the function will need to traverse through the linked list up to the xth node to perform the deletion. 
+This involves x iterations through the list. Therefore, the time complexity is O(x).
+
+Space Complexity: O(x), The space complexity of the recursive approach is determined by the call stack size during the recursion. 
+In this case, it is x only.
+
+7. I know many of you will be confuse at the place where we are refering value coming from recursive function with head.next, 
+the thing is after deletion of the desired node,
+when we will come back from our recursive functions we will get value from the end, because we are coming back after traversing whole LinkedList, so to add rest of the nodes
+at the end, so that their position remains same, we are refering them with head.next for each recursive call.
+
+8. Just Smile! and Being grateful to god for giving you such a intelligent mind that you have got the solution!!.
+*/
+
+
+class GfG
+{
+    Node deleteNode(Node head, int x)
+    {
+    	 
+    	 if(head==null) return null;
+    	 
+    	 if(x==1){
+    	     head=head.next;
+    	     return head;
+    	 }
+    	 
+      head.next = deleteNode(head.next,x-1);
+	    return head;
+    }
+}
