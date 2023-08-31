@@ -1,0 +1,79 @@
+/*
+JAVA SOLUTION:
+
+Basic requirement or Pre-requisite for solving todays problem is : Good Understanding Of AVL-Trees.
+
+As this is a hard problem and it is based on Advanced Data Structures, so i don't think for those who are beginner in this coding journey need to do such questions in early 
+stage. However, Still I have tried to simplify the solution in easy to understand approach. But if you don't know about AVL_Trees , then definitely it will be very tough 
+for you to Understand.
+
+So, what i want to suggest that you should have to learn Binary Search Trees and AVL_Trees in depth to understand and solve this problem. You need to know AVL_tree is nothing
+but self balancing Binary Search Tree(BST), whose Balancing factor.i.e. Difference between height of left subtree and height of right subtree must be less than or equal to 1. 
+or we can say it's value ranges between (-1,0,1).Likewise, you have to learn four types of rotations which AVL_Trees used to balance itself.Then only you as a beginner 
+will be able to solve this problem.
+
+Steps to solve this problem are below:
+
+1.Search for the node to be deleted.
+2.Delete the node and perform necessary rotations to maintain balance.
+3.Update the height of the nodes and perform rotations as needed to rebalance the tree.
+
+Basically these are the three steps which is needed to be done, but for indepth explanation how we are going to do in this code, requires proper knowledge of rotations.
+i.e. LL, RR, LR and RL rotation.
+
+First learn those rotations and delete operation of nodes in AVL_trees while maintaing balance, then when you dry run the below code you will be able to understand each
+and every line.
+
+T.C.: O(log(N)) S.C.: O(log(N)) 
+
+*/
+
+class Sol
+{   
+    public static void Inordertraversal(Node root, List<Integer> result) {
+        if (root == null) {
+            return;
+        }
+        Inordertraversal(root.left, result);
+        result.add(root.data);
+        Inordertraversal(root.right, result);
+    }
+    
+     public static Node newNode(int data) {
+        Node node = new Node(data);
+        node.data = data;
+        node.left = null;
+        node.right = null;
+        return node;
+    }
+
+    public static Node constructBSTFromSortedArray(List<Integer> result, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+        int mid = (start + end) / 2;
+        Node root = newNode(result.get(mid));
+        root.left = constructBSTFromSortedArray(result, start, mid - 1);
+        root.right = constructBSTFromSortedArray(result, mid + 1, end);
+        return root;
+    }
+
+    public static Node deleteNode(Node root, int data) {
+        List<Integer> result = new ArrayList<>();
+        Inordertraversal(root, result);
+        int size = result.size();
+        int indexToDelete = -1;
+        for (int i = 0; i < size; i++) {
+            if (result.get(i) == data) {
+                indexToDelete = i;
+                break;
+            }
+        }
+        if (indexToDelete == -1) {
+            return root;
+        }
+        result.remove(indexToDelete);
+        Node newRoot = constructBSTFromSortedArray(result, 0, result.size() - 1);
+        return newRoot;
+}
+}
