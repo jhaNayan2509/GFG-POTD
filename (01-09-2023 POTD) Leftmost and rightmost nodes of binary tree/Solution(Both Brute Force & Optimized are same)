@@ -1,0 +1,47 @@
+/*
+
+JAVA Simple Approach:
+
+1.Simply do Level Order Traversal of the tree. 
+
+2.Every time we store the size of the queue in a variable n, which is the number of nodes at that level.
+
+3.For every level, check whether the current node is the first node (i.e node at index 0) or the last node (i.e node at index n-1) ,
+If it is either of them, we print the value of that node.  
+
+4.T.C.: O(N) S.C.:O(number of nodes in a level)
+ 
+
+>>Java O(N) solution : Easy Few Lines Solution(Optimized One) :
+
+*/
+
+class Tree
+{
+    public static void printCorner(Node node)
+    {
+       if(node==null) return;
+        Queue<Node>queue = new LinkedList<Node>();
+        queue.add(node);
+        
+        while(!queue.isEmpty()){
+            int n = queue.size();
+            int i=0;
+            while(i!=n){
+                Node tempNode = queue.poll();
+                if(i==0 || i==n-1)
+                System.out.print(tempNode.data+" ");
+                
+                if(tempNode.left!=null)
+                queue.add(tempNode.left);
+                
+                if(tempNode.right!=null)
+                queue.add(tempNode.right);
+                
+                i++;
+            }
+        }
+        
+    }
+    
+}
