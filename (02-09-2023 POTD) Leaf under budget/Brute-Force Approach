@@ -1,0 +1,53 @@
+/*
+Brute Force Approach: 
+T.C.: O(2^(N + B)), where N is the number of nodes in the tree and B is the given budget.
+S.C.: O(N), determined by the maximum height of the call stack during the recursive calls. This is equivalent to the height of the tree.
+
+>The basic idea is to explore all possible combinations of budget allocations for visiting the left and right subtrees of each node 
+and recursively find the maximum count of visited leaf nodes.
+
+>In the code given, for each non-leaf node, the helper function iterates through different budget allocations for its left and right subtrees.
+
+>It tries all possible combinations and returns the maximum count of visited leaf nodes that can be achieved.
+
+>This approach ensures that we explore all possible paths and budgets to find the optimal solution.
+
+>Inside the getCount method, the work is delegated to the helper method.
+
+>The helper method is a recursive function that calculates the maximum count of visited leaf nodes considering the budget and level of each node.
+
+>In the helper method: The base case checks if the budget is less than or equal to zero or if the current node is null.
+
+>It then recursively calculates the maximum count of visited leaf nodes for the left and right subtrees using the respective budgets and increments the level by 1.
+
+>The function returns the maximum count obtained from all possible combinations of budget allocations for the left and right subtrees.
+
+Note: This approach will give Time Limit Exceeded(TLE) as it is not an optimized approach.
+*/
+
+class Solution{
+    public int getCount(Node node, int bud)
+    {
+        return helper(node,bud,1);
+    }
+    
+    public int helper(Node root,int bud,int lev){
+        if(bud<=0||root==null)
+            return 0;
+        if(root.left==null && root.right==null){
+            if(bud>=lev){
+                return 1;
+            }
+            return 0;
+        }
+        int max = 0;
+        for(int i=0;i<=bud;i++){
+            int j = bud-i;
+            max=Math.max(max,helper(root.left,i,lev+1)+helper(root.right,j,lev+1));
+            
+        }
+        return max;
+        
+    }
+}
+
