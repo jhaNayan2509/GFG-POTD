@@ -1,0 +1,61 @@
+/*
+
+JAVA Simple Approach:
+
+1.Simply do Level Order Traversal of the tree(BFS). 
+
+2.Every time we store the size of the queue in a variable n, which is the number of nodes at that level.
+
+3.For every level, check whether there is any leaf node present or not. To check whether the current node is a leaf node or not, just check if current node's left and 
+right child equal to null.
+
+4.If there is a leaf node, just subtract level from the budget untill budget is greater than or equal to level, update the budget with the value which we get after taking
+difference, and each time increase the count.We are subtracting level from budget, because it is level only that is our cost of visiting leaf node in our problem.
+
+5.Return count and Smile because we have got the solution!!
+
+6.T.C.: O(N) S.C.:O(N)
+
+
+>>Java O(N) solution : Easy Few Lines Solution(Optimized One) :
+
+*/
+class Solution{
+    public int getCount(Node node, int bud)
+    {
+        if(node==null||bud==0) return 0;
+        int level=0;
+        //int ans=0;
+        Queue<Node> q = new LinkedList<>();
+        q.add(node);
+        int count=0;
+       
+        while(!q.isEmpty()){
+            int n = q.size();
+            level++;
+            int i=0;
+            while(i!=n){
+                Node temp = q.poll();
+                
+                if(temp.left!=null){
+                    q.add(temp.left);
+                }
+                
+                if(temp.right!=null){
+                    q.add(temp.right);
+                }
+                
+                if(temp.left==null&&temp.right==null){
+                   if(bud>=level){
+                       bud=bud-level;
+                       count++;
+                   }
+                }
+                i++;
+            }
+        }
+        
+        return count;
+    
+    }
+}
