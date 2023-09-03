@@ -1,0 +1,48 @@
+/*
+
+JAVA Simple Approach:
+
+There are two cases to consider:
+
+1. When the left subtree of `root1` is compared with the left subtree of `root2`, and the right subtree of `root1` is compared with the right subtree of `root2`.
+
+
+2. When the left subtree of `root1` is compared with the right subtree of `root2`, and the right subtree of `root1` is compared with the left subtree of `root2`.
+
+
+If any of these cases return `true`, it means the trees are isomorphic. 
+Otherwise, we keep recursively checking other combinations of the subtrees until we find a match or exhaust all possibilities. That's it!
+
+
+>>T.C.: O(min(N1, N2)), where N1 and N2 are the number of nodes in the two trees.
+
+>>S.C.: O(min(H1, H2)), where H1 and H2 are the heights of the two trees.
+
+>>Java solution : Easy Few Lines Solution(Optimized One) :
+
+*/
+
+class Solution  
+{ 
+    // Return true if the given trees are isomorphic. else return false.
+    boolean isIsomorphic(Node root1, Node root2)  
+    { 
+         if (root1 == null && root2 == null)
+            return true;
+        
+        // If one of the trees is empty, they are not isomorphic
+        if (root1 == null || root2 == null)
+            return false;
+        
+        // check if the data of the current nodes is the same
+        if (root1.data != root2.data)
+            return false;
+        
+        // check for isomorphism recursively by considering two cases:
+        // 1. The subtrees of root1 map to the subtrees of root2
+        // 2. The subtrees of root1 map to the mirrored subtrees of root2
+        return (isIsomorphic(root1.left, root2.left) && isIsomorphic(root1.right, root2.right)) ||
+               (isIsomorphic(root1.left, root2.right) && isIsomorphic(root1.right, root2.left));
+    }
+    
+}
