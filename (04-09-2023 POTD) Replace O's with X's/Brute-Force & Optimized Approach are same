@@ -1,0 +1,100 @@
+/*
+JAVA Simple Approach:
+
+The basic logic in this is simply use of the flood fill algorithm, we will replace 'O' with any character lets say '-', 
+For each cell that contains '-', perform a flood-fill operation starting from that cell. Once the flood-fill operations are complete, 
+iterate through the entire matrix and replace '-' with 'X.
+
+The dfs function performs a recursive flood-fill operation.
+For the given position (x,y) it checks if the current cell contains the prevC character. 
+If not, or if the current position is outside the matrix bounds, 
+then we return the function. Otherwise, it replaces the character with newC and recursively calls itself on the adjacent cells(i.e (x+1,y), (x-1,y), (x,y+1), (x,y-1)).
+
+
+Iterate the whole matrix and if you get the character 'O' replace it with the character '-'.
+Run a loop i from 0 to n, for checking the 0th column of every row(i.e. boundary).
+
+If we get the character '-' at mat[i][0], then we will call the dfs function for ith row and 0th column.
+Run a loop i from 0 to n, for checking the (m-1)th column of every row(i.e. boundary).
+
+If we get the character '-' at mat[i][m-1], then we will call the dfs function for ith row and (m-1)th column.
+Run a loop i from 0 to m, for checking the 0th row of every column(i.e. boundary).
+
+If we get the character '-' at mat[0][i], then we will call the dfs function for 0th row and ith column.
+Run a loop i from 0 to m, for checking the (n-1)th row of every column(i.e. boundary).
+
+If we get the character '-' at mat[n-1][i], then we will call the dfs function for (n-1)th row and ith column.
+Iterate the whole matrix and if you get the character '-' replace it with the character 'X'.
+
+Return the resultant matrix.
+
+T.C.: O(N*M), As we are traversing the matrix 2 times and run flood fill for every row and column whose complexity can be O(N*M) in worst case, 
+so total time complexity becomes O(N*M).
+S.C.: O(1), As we are not using any extra space.
+
+
+*/
+
+class Solution {
+    private int N, M;
+    
+    public void dfs(char[][] temp, int x, int y, char prevC, char newC) {
+        if (x < 0 || x >= N || y < 0 || y >= M)
+            return;
+        if (temp[x][y] != prevC)
+            return;
+        
+        temp[x][y] = newC;
+        dfs(temp, x+1, y, prevC, newC);
+        dfs(temp, x-1, y, prevC, newC);
+        dfs(temp, x, y+1, prevC, newC);
+        dfs(temp, x, y-1, prevC, newC);
+    }
+    
+    public char[][] fill(int n, int m, char[][] mat) {
+        N = n;
+        M = m;
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (mat[i][j] == 'O') {
+                    mat[i][j] = '-';
+                }
+            }
+        }
+        
+        for (int i = 0; i < n; i++) {
+            if (mat[i][0] == '-') {
+                dfs(mat, i, 0, '-', 'O');
+            }
+        }
+        
+        for (int i = 0; i < n; i++) {
+            if (mat[i][m-1] == '-') {
+                dfs(mat, i, m-1, '-', 'O');
+            }
+        }
+        
+        for (int i = 0; i < m; i++) {
+            if (mat[0][i] == '-') {
+               dfs(mat, 0, i, '-', 'O');
+            }
+        }
+        
+        for (int i = 0; i < m; i++) {
+            if (mat[n-1][i] == '-') {
+               dfs(mat, n-1, i, '-', 'O');
+            }
+        }
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (mat[i][j] == '-') {
+                    mat[i][j] = 'X';
+                }
+            }
+        }
+        
+        return mat;
+    }
+}
