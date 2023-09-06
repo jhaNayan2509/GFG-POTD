@@ -1,0 +1,63 @@
+/*
+Java Simple Approach:
+
+ In a directed graph, a mother vertex is a vertex from which we can reach all other vertices in the graph. 
+
+🔍 Let's break down the code to understand how it works:
+
+1️⃣ The `findMotherVertex` method takes the number of vertices `V` and an adjacency list `adj` representing the graph as parameters. 
+It returns the index of the mother vertex, or -1 if there is no mother vertex.
+
+2️⃣ Within the `findMotherVertex` method, a boolean array `visited` is initialized with the size of `V` to keep track of visited vertices. 
+The variable `mV` is set to -1 initially.
+
+3️⃣ A loop runs from 0 to `V-1` to go through each vertex.
+
+4️⃣ If a vertex `i` has not been visited (`!visited[i]`), the `dfs` method is called with `adj`, `i`, and `visited` as parameters.
+This recursive method performs depth-first search starting from `i`, marking all visited vertices.
+
+5️⃣ After the loop, the array `visited` is filled with `false` values using `Arrays.fill(visited, false)`.
+
+6️⃣ Another call to the `dfs` method is made with `adj`, `mV`, and `visited`, where `mV` is the last vertex assigned during the first `dfs` calls.
+
+7️⃣ Another loop runs through each boolean value `val` in `visited`. If any value is `false`, 
+it means there is a vertex that could not be reached from the starting vertex, so -1 is returned.
+
+8️⃣ If all values in `visited` are `true`, the index of the mother vertex `mV` is returned.
+
+9️⃣ The `dfs` method is a recursive function that performs depth-first search starting from a given vertex `v`. It marks `v` as visited, 
+and then recursively explores its adjacent vertices using the adjacency list `adj`.
+
+🚀 That's the overall explanation of the code! 
+
+Time Complexity: O(V+E)
+Space Complexity: O(V)
+
+*/
+
+class Solution {
+    public int findMotherVertex(int V, ArrayList<ArrayList<Integer>> adj) {
+        boolean[] visited = new boolean[V];
+        int mV = -1;
+        for (int i = 0; i < V; i++) {
+            if (!visited[i]) {
+                dfs(adj, i, visited);
+                mV = i;
+            }
+        }
+        Arrays.fill(visited, false);
+        dfs(adj, mV, visited);
+        for (boolean val : visited) {
+            if (!val) return -1;
+        }
+        return mV;
+    }
+    public void dfs(ArrayList<ArrayList<Integer>> adj, int v, boolean[] visited) {
+        visited[v] = true;
+        for (int it : adj.get(v)) {
+            if (!visited[it]) {
+                dfs(adj, it, visited);
+            }
+        }
+    }
+}
