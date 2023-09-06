@@ -1,0 +1,43 @@
+/* 
+JAVA Simple Brute-Force Approach:
+
+The function findMotherVertex() takes the number of vertices V and an adjacency list adj[] as input.
+
+The function iterates through all the vertices in the graph (from 0 to V-1).
+
+For each vertex i, it performs a Breadth-First Search (BFS) traversal starting from i using a queue.
+
+If the count after the BFS traversal is equal to the total number of vertices V, it means all vertices are visited, and i is the Mother Vertex.
+
+if we will not get any mother vertex , then we will simply return -1.
+
+T.C.: O(V * (V + E)), the code performs a BFS from each vertex to find the count of vertices reachable from that vertex. 
+In the worst case, it performs BFS on all V vertices. The BFS on each vertex takes O(V + E) time, where V is the number of vertices, and E is the number of edges.
+
+S.C.: O(V), as we use a vis array of size V to keep track of visited vertices and a queue of size at most V for BFS traversal.
+
+*/
+class Solution {
+    public int findMotherVertex(int V, ArrayList<ArrayList<Integer>> adj) {
+        int ans = 0;
+        for (int i = 0; i < V; i++) {
+            boolean[] vis = new boolean[V];
+            vis[i] = true;
+            Queue<Integer> q = new LinkedList<>();
+            q.add(i);
+            int count = 1;
+            while (!q.isEmpty()) {
+                int node = q.poll();
+                for (int child : adj.get(node)) {
+                    if (!vis[child]) {
+                        count++;
+                        vis[child] = true;
+                        q.add(child);
+                    }
+                }
+            }
+            if (count == V) return i;
+        }
+        return -1;
+    }
+}
