@@ -1,0 +1,70 @@
+/*
+Java Simple Approach:
+
+🔒 `if (start == end) return 0;` statement checks if the starting index is equal to the ending index. 
+If true, it means there are no elements to multiply, so the method returns 0.
+
+📚 The code snippet includes imports for `Queue` and `Map` from the `java.util` package to use within the method.
+
+🎉 `Queue<Integer> queue = new LinkedList<>();` creates a queue using the `LinkedList` class to keep track of intermediate values.
+
+🗺 The `Map<Integer, Integer> map = new HashMap<>();` creates a map using the `HashMap` class to store the intermediate values 
+and their corresponding number of multiplications needed to reach them.
+
+📝 `queue.offer(start);` adds the starting index to the queue.
+   `map.put(start, 0);` adds the starting index to the map with 0 as the number of multiplications needed.
+
+🔄 The code enters a `while` loop that runs until the queue is empty.
+
+🧷 `int temp = queue.poll();` removes the first value from the queue and assigns it to the variable `temp`.
+   `int curr = map.get(temp);` retrieves the number of multiplications needed for the current value from the map.
+
+🔁 The code uses a `for-each` loop to iterate over each element `x` in the `arr` array.
+   🖇 `int newStart = (temp * x) % 100000;` calculates the new value by multiplying `temp` by `x` and taking the remainder when divided by 100000.
+   ✅ `if (newStart == end) return curr+1;` checks if the new value is equal to the ending index. If true, it means it's the desired value, so the method returns the current number of multiplications plus one.
+   📦 `if (!map.containsKey(newStart))` checks if the new value is not already present in the map.
+       🌏 `queue.offer(newStart);` adds the new value to the queue.
+       📒 `map.put(newStart, curr+1);` adds the new value to the map with the current number of multiplications plus one.
+
+🔚 If the queue becomes empty and no desired value is found, the method returns -1.
+
+💡 Basically what we are trying to find a sequence of multiplications starting from the `start` index and reaching the `end` index. 
+Each element in the `arr` array is used as a multiplier, and the code keeps track of the number of multiplications needed to reach each intermediate value. 
+The algorithm uses a queue and a map to store the intermediate values and their corresponding number of multiplications.
+
+T.C.: O(N^M), here the time complexity depends on the number of possible sequences we will gone through. In the worst case, it will be all sequences,so, time complexity is O(N^M). 
+where N is the size of 'arr' and M is the number of steps, due to the modulo operation.
+
+S.C.: O(N^M)
+
+*/
+
+class Solution {
+    int minimumMultiplications(int[] arr, int start, int end) {
+        
+        if (start == end) return 0;
+        
+        Queue<Integer> queue = new LinkedList<>();
+        
+        Map<Integer, Integer> map = new HashMap<>(); 
+        
+        queue.offer(start);
+        map.put(start, 0);
+        
+        while (!queue.isEmpty()) {
+            int temp = queue.poll();
+            int curr = map.get(temp);
+            
+            for (int x : arr) {
+                int newStart = (temp * x) % 100000;
+                if (newStart == end) return curr+1;
+                
+                if (!map.containsKey(newStart)) {
+                    queue.offer(newStart);
+                    map.put(newStart, curr+1);
+                }
+            }
+        }
+        return -1; 
+    }
+}
