@@ -1,0 +1,67 @@
+/* 
+Java Simple Approach:
+
+📝 The given code is a solution class with a method `minimumMultiplications` that takes an integer array `arr`, a start index, and an end index as parameters. 
+The purpose of this method is to find the minimum number of multiplications required to transform the start value to the end value 
+by performing multiplication operations with the elements of the `arr` array.
+
+📝 In this code, an array `steps` of size 100001 is created and filled with -1 using `Arrays.fill(steps, -1)`. 
+This array will store the steps taken to reach each index from the start index.
+
+📝 A queue `queue` is created using the `LinkedList` implementation and the start index is added to the queue using `queue.offer(start)`. 
+The value of the start index is also set to 0 in the `steps` array to indicate that it has been visited.
+
+📝 In the `while` loop, the queue is processed until it becomes empty.
+Inside the loop, the first element `curr` is removed from the queue using `queue.poll()`. 
+If the current value is equal to the end index, the steps taken to reach that index are returned.
+
+📝 In the `for` loop, each element `x` in the `arr` array is iterated.
+A new start value is calculated by multiplying the current value `curr` with `x` and taking the modulus with 100000. 
+This ensures that the new start value stays within the valid range.
+
+📝 If the steps for the new start value have not been calculated previously (i.e., `steps[newStart] == -1`),
+the steps for the new start value are updated by adding 1 to the steps of the current value, and the new start value is added to the queue using `queue.offer(newStart)`.
+
+📝 If the end index is not reached after processing the queue, a value of -1 is returned to indicate that it is not possible to transform the start value to the end value.
+
+💡 Overall, this code uses breadth-first search (BFS) to 
+find the minimum number of multiplications required to reach the end index from the start index using the elements of the `arr` array.
+
+T.C.: O(10^5), As the number of states is 10^5 since we do the modulo with 10^5. 
+So in the worst case we would maximum check for 10^5 different states and the complexity is approximately equals to O(10^5).
+S.C.: O(10^5), In the worst case, the queue could hold all the states generated during BFS traversal.
+
+*/
+
+class Solution {
+   int minimumMultiplications(int[] arr, int start, int end) {
+         
+        int[] steps = new int[100001];
+        
+        Arrays.fill(steps, -1);
+
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(start);
+        steps[start] = 0;
+
+        while (!queue.isEmpty()) {
+            int curr = queue.poll();
+            if (curr == end) {
+                return steps[curr];
+            }
+
+            for (int x : arr) {
+                int newStart = (curr*x)%100000;
+                if (steps[newStart] == -1) {
+                    steps[newStart] = steps[curr] + 1;
+                    queue.offer(newStart);
+                }
+            }
+        }
+
+        return -1; 
+
+    }
+}
+
+
