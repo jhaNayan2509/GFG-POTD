@@ -1,0 +1,76 @@
+/*
+Java Simple Approach:
+
+In the code snippet, there is a helper method `helper` which recursively traverses the binary tree in an "inorder" manner and adds the node values to an `ArrayList` named `al`. 
+The `helper` method takes an `ArrayList` and a `Node` as parameters. It first checks if the `temp` node is null, and if so, it returns. Otherwise, 
+it recursively calls `helper` on the left child of `temp`, adds the value of `temp` to the `ArrayList`, and then recursively calls `helper` on the right child of `temp`.
+
+
+The `helper_1` method constructs the final BST recursively using a divide-and-conquer approach. It takes a `start` and `end` index, along with the `ArrayList` `al` as parameters. 
+If `start` is greater than `end`, it returns `null`.
+Otherwise, it calculates the middle index as `(start + end) / 2` and creates a new `Node` `root` with the value at the middle index of the `ArrayList`.
+It then recursively calls `helper_1` on the left subarray (`start` to `mid - 1`) and assigns the returned node to the left child of `root`. 
+Similarly, it recursively calls `helper_1` on the right subarray (`mid + 1` to `end`) and assigns the returned node to the right child of `root`. Finally, it returns `root`.
+
+The `binaryTreeToBST` method is the main method that converts the given binary tree to a BST. 
+It first checks if the root is `null` and if so, it returns `null`. It then creates an `ArrayList` `al` to store the node values in sorted order.
+It assigns the `root` to a temporary node `temp` and calls the `helper` method to add the node values to `al`. 
+After that, it sorts the `ArrayList` using `Collections.sort` to ensure the values are in ascending order. 
+Finally, it calls the `helper_1` method with `start` as `0` and `end` as `al.size() - 1`, along with `al`, to construct the final BST and returns the root of the BST.
+
+T.C.: O(NLogN), As in this we use first two traversals are for collecting the values and sorting them. 
+Each of these two traversals takes O(N), and the third traversal modifies the binary tree using the sorted values.
+It also takes O(N), and sorting takes O(NlogN) time. So total time complexity becomes O(NlogN). Where N is the number of nodes in the binary tree.
+
+S.C.: O(N), As in this we have made an arraylist which is an extra space, Where N is the number of nodes in the binary tree.
+
+*/
+
+class Solution
+{
+    // The given root is the root of the Binary Tree
+    // Return the root of the generated BST
+    
+    //Function for add nodes to arraylist
+    void helper(List<Integer> al , Node temp){
+        if(temp==null) return;
+        
+        helper(al,temp.left);
+        al.add(temp.data);
+        helper(al,temp.right);
+    }
+    
+    //Function to construct final BST
+    Node helper_1(int start,int end,List<Integer> al){
+        if(start>end) return null;
+        
+        int mid = (start+end)/2;
+        Node root = new Node(al.get(mid));
+        root.left= helper_1(start,mid-1,al);
+        root.right = helper_1(mid+1,end,al);
+        
+        return root;
+    }
+    
+    Node binaryTreeToBST(Node root)
+    {  
+        
+       if(root==null) return root;
+       
+       List<Integer> al = new ArrayList<>();
+       
+       Node temp=root;
+       
+       helper(al,temp);
+       
+       Collections.sort(al);
+       
+        Node ans = helper_1(0,al.size()-1,al);
+        return ans;
+    }
+}
+
+
+
+
+*/
