@@ -1,0 +1,49 @@
+/*
+Java Simple Approach:
+
+Logic: if we do the inorder traversal of BST, then we can get nodes values in sorted manner, so, first we will do that and add each node to a List.
+       By default, this list will be in sorted manner as we added nodes in that fashion only. At the end, we will simply return the kth largest element by taking difference of
+       list size and k.
+
+The `helper` method is a recursive function that performs an in-order traversal of the BST and adds the nodes to a list (represented by the `al` parameter). 
+The in-order traversal visits the left subtree, then the current node, and finally the right subtree.
+
+The `kthLargest` method takes a root node and an integer `K` as parameters. 
+
+It initializes an empty `ArrayList` called `al`. It then calls the `helper` function to populate `al` with the BST nodes in the correct order. 
+Finally, it returns the Kth largest element from the `al` list.
+
+
+T.C.: O(N), As every node will be visited exactly once in the Inorder Traversal, the time complexity will be O(N).
+
+S.C.: O(N), As the maximum height of the BST can be ‘N’ and we are storing each node in the vector which has O(N) space complexity, 
+the space complexity due to the recursion stack and storing nodes in arraylist will be O(N).
+
+
+*/
+
+class Solution
+{
+   
+    
+    //this function will do in-order traversal of BST and add nodes in list
+    public void helper(Node root,List<Integer> al){
+        if(root==null)
+        return;
+        
+        helper(root.left,al);
+        al.add(root.data);
+        helper(root.right,al);
+    }
+    
+    
+     // return the Kth largest element in the given BST rooted at 'root'
+    public int kthLargest(Node root,int K)
+    {
+        List<Integer> al = new ArrayList<>();
+        
+        helper(root,al);
+        //System.out.println(al);
+        return al.get(al.size()-K);
+    }
+}
