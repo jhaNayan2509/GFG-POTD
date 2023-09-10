@@ -1,0 +1,83 @@
+/*
+Java Simple Approach:
+
+💡 A Binary Search Tree(BST) is a data structure in which each node has at most two children, 
+with the left child being less than the parent node,
+and the right child being greater than the parent node.
+
+✨ Let's break down the code and see how it works:
+
+
+```javaclass Solution {
+    // Function to insert a node in a BST.
+    Node insert(Node root, int key) {
+        // if node is null, we return a new node with given data.
+        if (root == null) return new Node(key);
+```
+
+
+🔍 The `insert` method takes two parameters: `root`, representing the root node of the BST, and `key`, representing the data value to be inserted into the BST.
+
+🔍 The first condition checks if the `root` node is null, which means the BST is empty. In that case, a new node with the given `key` is created and returned. 
+This new node becomes the root of the BST.
+
+
+```java        // if given data is less than data at the current node, we call the
+        // function recursively to insert new node in left subtree.
+        if (key < root.data) root.left = insert(root.left, key);
+```
+
+
+🔍 If the `root` node is not null, the code checks if the `key` is less than the data stored in the `root` node. 
+If true, the `insert` method is called recursively with the root's left child node and the `key`. 
+This process continues until it finds an appropriate position to insert the new node in the left subtree.
+
+
+
+```java        // else if given data is more than data at the current node, we call the
+        // function recursively to insert new node in right subtree.
+        else if (key > root.data)
+            root.right = insert(root.right, key);
+```
+
+
+🔍 If the `key` is greater than the data stored in the `root` node, the `insert` method is called recursively with the root's right child node and the `key`.
+This process continues until it finds an appropriate position to insert the new node in the right subtree.
+
+```java        return root;
+    }
+}
+```
+
+✅ Finally, the `root` node is returned after the appropriate position for the new node has been found and it is inserted into the BST.
+
+💡 Overall, this `insert` method recursively inserts a new node into a BST by traversing through the tree based on the values of the nodes, until it finds an empty spot to add the new node.
+
+
+T.C.: O(H), As while searching for the element in the BST we don't check for all the nodes in the BST, 
+we traverse maximum till the height of the BST, where H is the height of BST.
+S.C.: O(H), As the size of recursive call stack is maximum H, where H is the height of BST.
+
+*/
+
+class Solution {
+    // Function to insert a node in a BST.
+    Node insert(Node root, int key) {
+
+        // if node is null, we return a new node with given data.
+        if (root == null) return new Node(key);
+
+        // if given data is less than data at the current node, we call the
+        // function recursively to insert new node in left subtree.
+
+        if (key < root.data) root.left = insert(root.left, key);
+
+        // else if given data is more than data at the current node, we call the
+        // function recursively to insert new node in right subtree.
+
+        else if (key > root.data)
+            root.right = insert(root.right, key);
+
+        return root;
+    }
+}
