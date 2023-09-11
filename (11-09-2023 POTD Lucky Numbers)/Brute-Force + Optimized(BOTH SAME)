@@ -1,0 +1,32 @@
+/*
+JAVA SIMPLE APPROACH
+
+Here, we have defined a method `isLucky` that checks if a given number is a lucky number. 
+In each iteration of the while loop, it checks if `n` is divisible by the current number `i`. 
+If it is, the method returns `false`. If the loop completes without finding any divisors, the method returns `true`, indicating that the number is a lucky number.
+
+we can see that at the ith iteration we start with the value N/(i+1).
+
+T.C.: O(N) 
+S.C.: O(1) 
+
+Refer this link for detailed explanation: https://www.geeksforgeeks.org/lucky-numbers/
+*/
+
+class Solution
+{
+    // Complete the function
+    // n: Input n
+    // Return True if the given number is a lucky number else return False
+    public static boolean isLucky(int n)
+    {
+        int i=2;
+        while(i<=n){
+            //if(i>n) return true;
+            if(n%i==0) return false;
+            n=n-n/i;
+            i++;
+        }
+        return true;
+    }
+}
