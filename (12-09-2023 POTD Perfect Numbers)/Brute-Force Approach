@@ -1,0 +1,28 @@
+/*
+Java Simple Approach:
+
+In brute-force approach,we will simply iterate from 1 to N-1 and add every factor of N into the integer sum 
+and if the sum becomes equal to N we return 1 otherwise 0.
+
+We are running loop only till N-1 because it is given in the question that we have to consider all the factors except the number itself.
+
+T.C.: O(N), As we are traversing through a loop of size N once.
+S.C.: O(1), As we are not using any extra space.
+
+*/
+
+class Solution {
+    static int isPerfectNumber(long N) {
+        long sum = 0;
+
+        for (int i = 1; i <= N - 1; i++) {
+
+            if (N % i == 0) {
+                sum += i;
+            }
+        }
+
+        if(sum==N) return 1;
+        return 0;
+    }
+}
