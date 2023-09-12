@@ -1,0 +1,61 @@
+/*
+Java Simple Approach:
+
+A perfect number is a positive integer that is equal to the sum of its proper divisors (excluding itself). 
+For example, the proper divisors of 6 are 1, 2, and 3, and their sum is 1 + 2 + 3 = 6, which makes 6 a perfect number.
+
+Now, let's break down the code step by step:
+
+1. The `if(n<=1) return 0;` condition checks if `n` is less than or equal to 1. 
+If so, the method returns 0, indicating that `n` is not a perfect number. This is because perfect numbers are defined as positive integers.
+
+
+2. The line `long sum=1;` initializes a variable `sum` to 1, which represents the sum of the proper divisors.
+
+
+3. The variable `i` is initialized to 2. 
+This variable will be used to iterate from 2 to the square root of `n` in the upcoming while loop.
+We only need to check the divisors up to the square root of `n` 
+because any divisor greater than the square root would have a corresponding divisor that is smaller than the square root.
+
+
+4. The while loop `while(i<=Math.sqrt(n))` runs until `i` is less than or equal to the square root of `n`.
+
+
+5. Inside the while loop, the condition `if(n%i==0)` checks if `i` is a divisor of `n`. 
+If it is, we have found two divisors: `i` and `n/i`, since `n` divided by `i` will give `n` divided by `n/i`. 
+
+
+6. If `i` is a divisor, we update the sum by adding `i` and `n/i` to it using the lines `sum+=i;` and `sum+=n/i;`.
+
+7. After each iteration, `i` is incremented by 1.
+
+8. Once the while loop finishes, we check if the sum of the proper divisors (`sum`) is equal to `n`. 
+If they match, it means that `n` is a perfect number, so we return 1. Otherwise, we return 0.
+
+
+T.C.: O(sqrt(N)), As we are traversing through a loop from 2 to square root of N.
+S.C.: O(1), As we are not using any extra space.
+
+*/
+
+class Solution {
+    static int isPerfectNumber(long n) {
+        if(n<=1) return 0;
+        
+        long sum=1;
+        
+        int i=2;
+        
+        while(i<=Math.sqrt(n)){
+            if(n%i==0){
+                sum+=i;
+                sum+=n/i;
+            }
+            i++;
+        }
+        
+        if(sum==n) return 1;
+        return 0;
+    }
+}
