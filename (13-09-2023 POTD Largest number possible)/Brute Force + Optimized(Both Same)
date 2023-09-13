@@ -1,0 +1,56 @@
+/*
+Java Simple Approach:
+
+1️⃣ First, there are two conditional statements:
+
+- The first condition checks if "n" is equal to 1 and "s" is equal to 0. If both conditions are true, it returns the string "0".
+- The second condition checks if "n" is greater than 1 and "s" is equal to 0, or if "n" multiplied by 9 is less than "s".
+If this condition is true, it returns the string "-1".
+
+These conditions handle some special cases and early checking of input values.
+
+2️⃣ Next, a StringBuffer object named "sb" is created. 
+This object is used to efficiently construct a mutable sequence of characters.
+
+3️⃣ Then, a while loop is implemented with a condition "n != 0". 
+This loop iterates until "n" becomes zero. Inside the loop, the following operations are performed:
+
+- The variable "digit" is assigned the minimum value between "s" and 9. 
+This ensures that the digit added to the StringBuffer is always the minimum of the remaining sum "s" or 9.
+- The digit is appended to the StringBuffer using the "append" method.
+- The value of "s" is updated by subtracting the value of "digit".
+- The value of "n" is decremented by 1.
+
+These operations help in finding the largest string of digits whose sum is equal to the given "s" and also keeps track of the number of digits added to the StringBuffer.
+
+4️⃣ Finally, the method returns the string representation of the StringBuffer using the "toString" method.
+
+Overall, this code seems to take two integer inputs, "n" and "s", and 
+returns a string representation of the largest number that can be formed using "n" digits and whose sum is equal to "s". 
+If certain conditions are not met, it returns "0" or "-1" accordingly.
+
+Basic logic is simply greedy, we will choose largest digit which is 9 until targetSum is greater than 9 and subtract 9 from targetSum, 
+after that when targetSum becomes less than 9, we will start 
+appending remaining targetSum value.Simple!
+
+T.C.: O(N), As we iterate through a loop from 0 to N to construct the StringBuilder.
+S.C.: O(N), As we have 'sb' StringBuilder which stores the result, and which has 'N' digits.
+
+*/
+
+class Solution{
+    static String findLargest(int n, int s){
+        if(n==1&&s==0) return "0";
+        if(n>1&&s==0||n*9<s)return "-1";
+        
+        StringBuffer sb = new StringBuffer();
+        
+        while(n!=0){
+            int digit = Math.min(s,9);
+            sb.append(digit);
+            s-=digit;
+            n--;
+        }
+        return String.valueOf(sb);
+    }
+}
