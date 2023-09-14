@@ -1,0 +1,67 @@
+/*
+Java Simple Approach:
+
+Basic Idea: we will use Recursion and
+explore all the paths once by taking the element at ith index and once by leaving it, In this way, we will get the count of all the subsets with a sum equal to a given sum.
+
+First, we have a class `Solution` which contains a few variables and a method `perfectSum`. The `mod` variable is initialized to 1e9 + 7, which is a large prime number.
+The `N` variable is used to store the length of the array.
+
+Next, we have a recursive method called `fun`. 
+This method takes three parameters: `pos` (the current position in the array), `sum` (the remaining sum we are trying to achieve), and `arr` (the array of numbers).
+
+Inside the `fun` method, we have a base case that checks if the position `pos` is greater than or equal to `N`. 
+If `pos` is greater or equal, it means we have reached or exceeded the array length, so we return 1 if `sum` is 0 (indicating we have achieved the desired sum) or 0 otherwise.
+
+Then, we have a variable `ans` which is initially set to 0.
+We increment `ans` by recursively calling `fun` with `pos + 1` (to move to the next position in the array) and the same `sum`. 
+This adds up all the possible combinations without using the current number.
+
+We then take the modulus of `ans` with `mod`, which ensures that the value of `ans` remains within a manageable range.
+
+Next, we check if `arr[pos]` (the value at the current position in the array) is less than or equal to `sum`.
+If it is, we increment `ans` by recursively calling `fun` with `pos + 1` and `sum - arr[pos]` (to subtract the current value from the remaining sum). 
+This adds up all the possible combinations by including the current number.
+
+We again take the modulus of `ans` with `mod`.
+
+Finally, we return `ans` at the end of the `fun` method.
+
+The `perfectSum` method takes an array `arr`, the length of the array `n`, and the desired sum `sum` as parameters. 
+It sets the `N` variable to `n` and calls the `fun` method with initial values `0` for `pos`, `sum` as the remaining sum, and `arr` as the array.
+
+T.C.: O(2N), This is because the code explores all possible subsets of the input array.
+S.C.: O(N), The space complexity is O(N) due to the recursive call stack, where N is the length of the input array.
+
+Note: This is not an optimized solution, so it will give TLE(Time Limit Exceeded), optimized one will be done through 2D-DP(Dynamic Programming).
+
+*/
+
+class Solution {
+    int mod = (int)(1e9 + 7); 
+                              
+    int N; 
+    int fun(int pos, int sum, int arr[])
+    {
+        if (pos >= N)
+            return sum == 0?1:0; 
+                             
+        int ans = 0; 
+        ans += fun(pos + 1, sum,
+                   arr); 
+                         
+        ans %= mod; 
+                    
+        if (arr[pos] <= sum)
+            ans += fun(pos + 1, sum - arr[pos], arr);
+        ans %= mod; 
+                        
+        return ans; 
+    }
+    public int perfectSum(int arr[], int n, int sum)
+    {
+        N = n; 
+        return fun(0, sum, arr); 
+                                 
+    }
+}
