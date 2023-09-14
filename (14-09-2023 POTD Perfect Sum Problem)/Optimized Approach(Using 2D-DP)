@@ -1,0 +1,78 @@
+/*
+Java Simple Approach:
+
+Basic Idea: 
+To eliminate the space of the recursive call stack we will use the iterative dynamic programming solution, which will not use the recursive stack.
+
+1. The code starts by initializing the `mod` variable to `1000000007`. 
+This value is used to take the modulo of intermediate calculations to prevent overflow.
+
+2. Next, a 2D array `dp` is initialized with dimensions `n+1` and `sum+1`. 
+This array will be used for dynamic programming, where `dp[i][j]` represents the number of ways to sum up to `j` using only the first `i` elements from the array `arr`.
+
+3. The base case `dp[0][0]` is set to `1` to indicate that there is one way to obtain a sum of `0` using `0` elements.
+
+4. The variable `i` is initialized to `1` and a `while` loop is executed until `i` reaches `sum`.
+Inside this loop, `dp[0][i]` is set to `0` because there are no elements in the array `arr`.
+
+5. After that, `i` is reset to `1` and another `while` loop is executed until `i` reaches `n`. This loop represents the dynamic programming approach.
+
+6. Inside the second loop, a variable `j` is initialized to `0` and an inner `while` loop is executed until `j` reaches `sum`.
+
+7. Inside the inner `while` loop, we calculate the number of ways to obtain the sum `j` using the first `i` elements from the array `arr`.
+
+8. If `j` is greater than or equal to `arr[i-1]`, it means we can include `arr[i-1]` in the sum.
+The number of ways to obtain the sum `j` is then calculated by adding the number of ways without including `arr[i-1]` (`dp[i-1][j]`) and 
+the number of ways by including `arr[i-1]` (`dp[i-1][j-arr[i-1]]`).
+
+9. If `j` is less than `arr[i-1]`, it means we cannot include `arr[i-1]` in the sum. 
+The number of ways remains unchanged as `dp[i-1][j]`.
+
+10. After calculating the number of ways for `dp[i][j]`, `j` is incremented.
+
+11. Similarly, after the inner `while` loop completes, `i` is incremented.
+
+12. Finally, the value of `dp[n][sum]` (which represents the total number of ways to obtain the sum `sum` using all `n` elements) is returned after taking the modulo `mod`.
+
+That's it! The code uses dynamic programming to find the number of ways to form a particular sum using elements from the array.
+
+T.C.: O(n * sum), As we are using a nested for loop of size n*sum.
+S.C.: O(n * sum), due to the 2D dp array
+
+
+*/
+
+class Solution{
+
+	public int perfectSum(int arr[],int n, int sum) 
+	{ 
+	    int mod=1000000007;
+	    
+	    int[][] dp = new int[n+1][sum+1];
+	    dp[0][0]=1;
+	    int i=1;
+	    
+	    while(i<=sum){
+	        
+	        dp[0][i]=0;
+	        
+	        i++;
+	    }
+	    
+	    i=1;
+	    
+	    while(i<=n){
+	        int j=0;
+	        while(j<=sum){
+	            if(j>=arr[i-1])
+	            dp[i][j]=(dp[i-1][j]%mod+dp[i-1][j-arr[i-1]]%mod)%mod;
+	            else
+	            dp[i][j]=dp[i-1][j]%mod;
+	            j++;
+	        }
+	        i++;
+	    }
+	    
+	    return dp[n][sum]%mod;
+	} 
+}
