@@ -1,0 +1,69 @@
+/*
+Java Simple Approach:
+
+//
+Basic Idea: This problem is a slight modification of the problem Subset Sum Problem. 
+We need to partition the array(say S) into two subsets(say S1 and S2). 
+
+According to the question:
+
+Sum of elements of S1 + sum of elements of S2 = sum of elements of S.
+Sum of elements of S1 = sum of elements of S2.
+These two conditions imply that S1 = S2 = (S/2). 
+
+Now,
+
+If S (sum of elements of the input array) is odd , there is no way we can divide it into two equal halves, so we can simply return false.
+If S is even, then we need to find a subsequence in the input array whose sum is equal to S/2 because if we find one subsequence with sum S/2, 
+the remaining elements sum will be automatically S/2. So, we can partition the given array. Hence we return true.
+//
+
+1️⃣ The code starts with a class declaration `class Solution`, indicating that this is a class that contains methods and functionality.
+
+2️⃣ The first method `equalPartitionHelper` is a recursive helper function that checks whether it is possible to partition the array into two equal subsets.
+
+3️⃣ Inside the `equalPartitionHelper` method, there are three main conditional statements:
+   - The first `if` statement checks if the current sum is equal to the target sum. If they are equal, it means we have found a solution and returns `true`.
+   - The second `if` statement checks if we have reached the end of the array (`index == N`) or if the current sum exceeds the target sum.
+      In either case, the function returns `false`.
+   - Finally, the function makes two recursive calls. 
+      In the first call, it skips the current element and moves on to the next element. 
+      In the second call, it includes the current element in the sum. The function returns `true` if either of these recursive calls returns `true`.
+
+4️⃣ The second method `equalPartition` is the main entry point for solving the equal partition problem.
+   - It starts by calculating the `totalSum` of all elements in the array.
+   - If the `totalSum` is not divisible by 2 (i.e., has a remainder), that means the array cannot be divided into two equal subsets, so it returns 0.
+   - Otherwise, it calculates the `targetSum`, which is half of the `totalSum`.
+   - It then calls the `equalPartitionHelper` method to check if the array can be partitioned into two equal subsets. The result is stored in the `x` variable.
+   - Finally, if `x` is `true`, it returns 1, indicating that the array can be partitioned into two equal subsets. Otherwise, it returns 0.
+
+I hope this explanation helps you understand the given code!
+
+T.C.: O(2^N), as it explores all possible subsets of the array.
+S.C.: O(N), where N is the size of the array, due to the recursive call stack.
+
+*/
+
+class Solution {
+    public static boolean equalPartitionHelper(int[] arr, int N, int index, int targetSum, int currentSum) {
+        if (currentSum == targetSum)
+            return true;
+        if (index == N || currentSum > targetSum)
+            return false;
+        return equalPartitionHelper(arr, N, index + 1, targetSum, currentSum) ||
+               equalPartitionHelper(arr, N, index + 1, targetSum, currentSum + arr[index]);
+    }
+    
+    static int equalPartition(int N, int[] arr) { 
+        int totalSum = 0;
+        for (int i = 0; i < N; i++)
+            totalSum += arr[i];
+        if (totalSum % 2 != 0)
+            return 0;
+        int targetSum = totalSum / 2;
+        boolean x= equalPartitionHelper(arr, N, 0, targetSum, 0);
+        
+        if(x==true) return 1;
+        return 0;
+    }
+}
