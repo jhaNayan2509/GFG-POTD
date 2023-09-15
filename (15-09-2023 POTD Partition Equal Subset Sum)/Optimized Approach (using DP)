@@ -1,0 +1,84 @@
+/*
+Java Simple Approach:
+
+Let's analyze the code with some snippets:
+
+Snippet 1:
+
+
+// int sum = Arrays.stream(arr).sum(); //
+
+This line calculates the sum of all elements in the arr[] array using the `sum()` method of the `Arrays` class. 
+The `Arrays.stream()` method converts the array into a stream, allowing us to use the `sum()` method.
+
+
+Snippet 2:
+
+//
+if (sum % 2 != 0) {
+    return 0;
+}
+//
+
+This condition checks if the sum of the array is odd. If it is, the method returns 0 immediately. 
+This is because in order to have equal partitions, the sum must be divisible by 2.
+
+
+Snippet 3:
+
+//
+long[] dp = new long[sum + 1];
+dp[0] = 1;
+//
+
+Here, a new array of type long named dp is created with a length of sum + 1.
+This array will be used for dynamic programming. The initial value of dp[0] is set to 1, which represents an empty partition.
+
+
+Snippet 4:
+
+
+//
+for (int i = 0; i < N; i++) {
+    for (int j = sum; j >= arr[i]; j--) {
+        dp[j] = dp[j] | dp[j - arr[i]];
+    }
+}
+//
+
+This nested loop is used to fill the dp array values using a bottom-up dynamic programming approach. 
+It iterates over each element in the arr[] array and updates the dp values. The bitwise OR (`|`) operation is used to combine the possible partition sums.
+
+
+Snippet 5:
+
+//
+return (int)dp[(sum / 2)];
+//
+
+Finally, the method returns the value of dp[(sum / 2)]. 
+This represents whether it is possible to partition the array into two equal partitions, as the sum divided by 2 will give the desired partition sum.
+
+That's all!
+
+T.C.: O(N*sumOfElements)
+S.C.: O(sumOfElements)
+
+*/
+
+class Solution{
+    static int equalPartition(int N, int arr[]) {
+    int sum = Arrays.stream(arr).sum();
+    if (sum % 2 != 0) {
+        return 0;
+    }
+    long[] dp = new long[sum + 1];
+    dp[0] = 1;
+    for (int i = 0; i < N; i++) {
+        for (int j = sum; j >= arr[i]; j--) {
+            dp[j] = dp[j] | dp[j - arr[i]];
+        }
+    }
+    return (int)dp[(sum / 2)];
+}
+}
