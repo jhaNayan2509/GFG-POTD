@@ -1,0 +1,43 @@
+/*
+Java Simple Approach:
+
+Basic Idea:
+
+As we only need the results for the previous three steps to calculate the number of ways to reach the current step. 
+This is because the frog can take either 1, 2, or 3 steps to reach the current step,
+and the number of ways to reach the current step only depends on the number of ways to reach the previous three steps. 
+So we can optimize the space used by using only a constant number of variables to store the intermediate results, rather than using an array of size n.
+
+
+T.C.: O(n), because we iterate through the loop n times, and each iteration involves constant-time operations.
+S.C.: O(1), because we use only a constant amount of extra space to store intermediate results, regardless of the size of n.
+*/
+
+class Solution
+{
+    //Function to count the number of ways in which frog can reach the top.
+    static long countWays(int n)
+    {
+       long mod = 1000000007;
+        
+        //base cases
+    	if (n == 1) return 1;
+        if (n == 2) return 2;
+        if (n == 3) return 4;
+        
+        //initializing base values.
+        long a = 1, b = 2, c = 4, temp;
+        
+        for (int i = 4; i <= n; i++)
+        {
+            temp = (a + b + c)%mod;
+            //updating a as b and b as c and c as temp (sum of a, b and c).
+            a = b;
+            b = c;
+            c = temp;
+        }
+        //returning the result.
+        return c;
+    }
+    
+}
