@@ -1,0 +1,36 @@
+/*
+Java Simple Approach:
+
+Idea: There are n stairs, 
+and a person is allowed to next step, skip one position or skip two positions. So there are n positions. 
+The idea is standing at the ith position the person can move from i-1,i-2 and i-3 positions.
+
+So a recursive function can be formed where at current index i the function is recursively called for i-1, i-2 and i-3 positions. 
+
+It is based on the idea of breaking down the problem into smaller subproblems and
+calculating the number of ways to reach the top step by recursively calculating the number of ways to reach the previous steps
+
+
+
+T.C.: O(3^n), this is because for each step, we make three recursive calls, leading to an exponential number of recursive calls.
+S.C.:  O(1). No extra space is required.
+
+*/
+class Solution
+{
+    //Function to count the number of ways in which frog can reach the top.
+   private static final int MOD = 1000000007;
+    
+    static long countWays(int n) {
+        if (n ==0) return 1;
+        if (n < 0) return 0;
+        
+        long ways = 0;
+        ways = (ways + countWays(n - 1)) % MOD;
+        ways = (ways + countWays(n - 2)) % MOD;
+        ways = (ways + countWays(n - 3)) % MOD;
+        return ways;
+    }
+    
+}
+
