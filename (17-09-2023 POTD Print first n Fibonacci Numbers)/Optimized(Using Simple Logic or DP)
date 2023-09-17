@@ -1,0 +1,51 @@
+/*
+Java Simple Approach(Logic Based or DP Tabulation):
+
+Basic Idea: We observe that we only need the previous two Fibonacci numbers to calculate the nth Fibonacci number .
+The idea is to store answer of previous two states as we need only their values for calculating answer for current state.
+
+The `printFibb` method takes an integer `n` as input, indicating the number of Fibonacci numbers to be calculated. 
+It initializes an array `res` of size `n` to store the Fibonacci numbers and sets the base cases for `n = 1` and `n = 2`. 
+
+Next, the code uses a loop starting from `i = 2` to calculate the remaining Fibonacci numbers by summing up the previous two numbers 
+(using the Fibonacci formula `res[i] = res[i-1] + res[i-2]`). Finally, the method returns the array `res` containing the calculated Fibonacci numbers.
+
+
+T.C.: O(n), as we are running a loop which is iterating n times.
+S.C.: O(n), as we are using res array to store first n fibonacci numbers which will take size of n.
+
+*/
+class Solution
+{
+    //Function to return list containing first n fibonacci numbers.
+    public static long[] printFibb(int n) 
+    {
+        long[] res = new long[n];
+        
+        
+        
+        if(n==1){
+            res[0]=1;
+            return res;
+        }
+        
+        if(n==2){
+            res[0]=1;
+            res[1]=1;
+            return res;
+        }
+
+        
+        res[0]=1;
+        res[1]=1;
+        
+        int i=2;
+        
+        while(i!=n){
+            res[i]= res[i-1]+res[i-2];
+            i++;
+        }
+        
+        return res;
+    }
+}
