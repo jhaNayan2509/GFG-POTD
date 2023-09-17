@@ -1,0 +1,52 @@
+/*
+Java Simple Approach:
+
+Basic Idea:
+find all numbers of the Fibonacci series by using recursion and keep adding them to the result array.
+
+1️⃣ The first method is a helper function named "helper". It takes an integer 'n' as input and recursively calculates the 'n'th Fibonacci number. 
+The base cases are checked first, where if 'n' is 0, it returns 0, and if 'n' is 1, it returns 1. Otherwise, it calculates the 'n'th Fibonacci number by recursively calling itself with 'n-1' and 'n-2', and summing the results.
+
+2️⃣ The second method is named "printFibb", which takes an integer 'n' as input and returns an array of 'n' Fibonacci numbers. 
+It first declares an array 'res' of long type with size 'n'. Then, it uses a for loop to iterate from 1 to 'n' (both inclusive). 
+Inside the loop, it calls the "helper" function to calculate each Fibonacci number and assigns the result to the corresponding index in the 'res' array.
+
+Finally, the program returns the 'res' array, containing the first 'n' Fibonacci numbers.
+
+T.C.: O(n*2^n), as the fibonacciRecursion method is called n times, 
+and each recursive call has a time complexity of O(2^n). This means the time complexity grows exponentially with the input size n.
+S.C.: O(n),  due to the space required for the result array and the maximum depth of the recursive call stack being n.
+
+
+*/
+class Solution {
+    
+    //helper function to find ith fibonacci number
+    public static long helper(int n)
+    {
+        if (n== 0)
+            return 0;
+        else if (n == 1)
+            return 1;
+        else
+            return helper(n - 1)
+                + helper(n - 2);
+    }
+    
+    
+    
+    
+    // Function to return list containing first n fibonacci
+    // numbers.
+    public static long[] printFibb(int n)
+    {
+        long[] res = new long[n];
+        
+        for (int i = 1; i <= n; i++) {
+            res[i - 1] = helper(i);
+        }
+        return res;
+    }
+
+    
+}
