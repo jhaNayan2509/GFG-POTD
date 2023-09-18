@@ -1,0 +1,40 @@
+/*
+Java Simple Approach(One Line Solution):
+
+Basic Idea: It is a fact that the number which will be the power of two have only one set bit ,
+therefore when we do bitwise and with the number which is just less than the number which can be represented as the power of (2) then the result will be 0 . 
+
+Here's how the logic works:
+
+1. The condition `(n & (n - 1))` checks whether `n` and `(n - 1)` have any common set bits (1s in the same positions).
+
+
+2. If `n` is a power of two, it will have only one set bit because it can be represented as `2^k` (where `k` is a non-negative integer). 
+Subtracting 1 from a power of two will result in a number with all bits to the right of the set bit flipped. 
+For example, `8` (2^3) in binary is `1000`, and `7` (8 - 1) is `0111`.
+
+
+3. When performing `n & (n - 1)`, if `n` is a power of two, there won't be any common set bits between `n` and `n - 1`, resulting in zero (`0`). 
+Otherwise, if `n` is not a power of two, there will be at least one common set bit between `n` and `n - 1`, resulting in a non-zero value.
+
+
+4. Finally, the expression `(n != 0 && (n & (n - 1)) == 0)` checks two conditions: `n` is not equal to zero, and `(n & (n - 1))` evaluates to zero.
+
+If both conditions are satisfied, the function returns `true`, indicating that the number `n` is a power of two. Otherwise, it returns `false`.
+
+
+T.C.: O(1), We are not running any loop, moreover all other operations like bitwise and takes O(1) time.
+S.C.: O(1), no extra space is used
+*/
+
+class Solution{
+    
+    // Function to check if given number n is a power of two.
+
+    public static boolean isPowerofTwo(long n){
+
+        return (n != 0 && (n & (n - 1)) == 0);
+
+    }
+    
+}
