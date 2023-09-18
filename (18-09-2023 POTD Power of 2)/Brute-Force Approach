@@ -1,0 +1,75 @@
+/*
+Note: In this problem , this brute-force approach can also pass all the testcases, but there is one more optimized solution exits which is in another file.
+
+Java Simple Approach:
+
+Tip: Numbers that are present in the power of 2 have only one setBit.
+
+Basic Idea: 
+>>
+Keep dividing the number by two, i.e, do n = n>>1 iteratively. 
+at each iteration check if first bit(from right) is 1 then increase the bit counter 
+and at the end check if the bit count is equal to 1 then return true else return false.
+
+📝 Here's the breakdown of the code:
+
+- The method first checks if `n` is equal to zero. If it is, it immediately returns `false` since zero is not considered a power of two.
+
+```if(n==0)
+    return false;
+```
+
+- Next, the variable `countSetBits` is initialized to zero. This variable will be used to count the number of set bits in the binary representation of `n`.
+
+```int countSetBits=0;
+```
+
+- A while loop is used to iterate until `n` becomes zero. 
+Inside the loop, the code counts the number of set bits in `n` by performing a bitwise `AND` operation with `1` and incrementing `countSetBits`. 
+It also right shifts `n` by 1 bit.
+
+
+```while(n!=0){
+    countSetBits+=(n&1);
+    n=n>>1;
+}
+```
+
+- After the loop, the code checks if `countSetBits` is equal to `1`. 
+If it is, it means `n` is a power of two and the method returns `true`. Otherwise, it returns `false`.
+
+
+```if(countSetBits==1) return true;
+return false;
+```
+
+That's the end of the code! It provides a way to determine if a given number is a power of two by counting the number of set bits in its binary representation.
+
+
+T.C.: O(log n), As we are iterating through all bits of number.
+S.C.: O(1), We are not using any extra space.
+
+*/
+
+class Solution{
+    
+    // Function to check if given number n is a power of two.
+    public static boolean isPowerofTwo(long n){
+        
+        if(n==0)
+        return false;
+        
+        int countSetBits=0;
+        
+        while(n!=0){
+            
+            countSetBits+=(n&1);
+            
+            n=n>>1;
+        }
+        
+        if(countSetBits==1) return true;
+        return false;
+    }
+    
+}
