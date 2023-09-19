@@ -1,0 +1,35 @@
+/*
+Java Simple Approach:
+
+Idea: Using right Shift(>>) operator.
+
+0.Initialize variable 'i'=1. This variable will store the position of set bits.
+1.Iterate till number>0.
+2.At each step check if the last bit is set.For this, just do bitwise '&' of number with 1.
+3.If last bit is set, return current position i.e. "i". 
+4.Else increment "i" by 1 and right shift n by 1. i.e. n>>=1 or n=n>>1
+5.If we not found any bit is set then at the end return 0.
+
+
+
+T.C.: O(Log(N)), Where N is given number.,Here many people will think we are iterating till N, then how time complexity comes out to be Log(N).
+
+Reason: with every right shift by one position, number become it halves. for example if number is 4(0100), and if we do right shift by 1, i.e. 4>>1, 
+then new number will be 2(010).So, it only takes log(N) time.
+
+S.C.: O(1), We are not using any extra space.
+*/
+class Solution
+{
+    //Function to find position of first set bit in the given number.
+    public static int getFirstSetBit(int n){
+        if(n==0) return 0;
+        int i=1;
+        while(n!=0){
+            if((n&1)==1) return i;
+            n>>=1;
+            i++;
+        }
+        return 0;
+    }
+}
