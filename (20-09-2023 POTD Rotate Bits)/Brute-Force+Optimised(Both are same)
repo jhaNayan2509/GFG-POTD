@@ -1,0 +1,50 @@
+/*
+Java Simple Approach:
+
+Basic Idea: 
+For rotating bits to right we will use right shift and
+the D bits which are at the rightmost we will add them in the leftmost side and do opposite for rotating left, and we will do this by applying arithmetic operations.
+
+Let's break down the code and explain each part:
+
+1️⃣ The line `D = D%16` calculates the modulo of D with 16. This is done to ensure that D is within the range of 0 to 15. 
+
+2️⃣ An ArrayList named `al` is initialized. This ArrayList will store the results of the left rotation and right rotation operations.
+
+
+3️⃣ The variable `leftRotation` is computed using bitwise shifting and bitwise OR operations. 
+The value of N is left-shifted by D positions, and then bitwise ORed with N right-shifted by (16-D) positions.
+The result is then bitwise ANDed with 65535 (a hexadecimal representation of 16 bits set to 1). This step is done to ensure that the result is limited to 16 bits.
+
+
+4️⃣ Similarly, the variable `rightRotation` is computed using bitwise shifting and bitwise OR operations. 
+The value of N is right-shifted by D positions, and then bitwise ORed with N left-shifted by (16-D) positions. 
+The result is then bitwise ANDed with 65535 to ensure it is limited to 16 bits.
+
+
+5️⃣ The leftRotation and rightRotation values are added to the ArrayList `al`.
+
+
+6️⃣ Finally, the ArrayList `al` is returned as the result of the method.
+
+
+T.C.: O(1), As we are applying the constant operation whose complexity is O(1).
+S.C.: O(1), As we are not using any extra space.
+
+*/
+
+class Solution
+{
+    
+    ArrayList<Integer> rotate(int N, int D)
+    {
+        D = D%16 ; 
+        ArrayList<Integer> al = new ArrayList<>() ; 
+        int leftRotation = ( N<<D | N>>(16-D) )&65535 ;  //to convert into 16 bit;
+        int rightRotation = ( N>>D | N<<(16-D) ) &65535 ;
+        
+        al.add(leftRotation) ; 
+        al.add(rightRotation) ; 
+        return al;
+    }
+}
