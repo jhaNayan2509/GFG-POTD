@@ -1,0 +1,66 @@
+/*
+Java Simple Approach:
+
+Maximum Money the Thief Can Get:
+
+In this problem, we are given an array of integers representing the amount of money in each house.
+The thief wants to maximize the amount of money he can steal without alerting the police. 
+The thief cannot steal from two adjacent houses as it will trigger an alarm. Our task is to find the maximum amount of money the thief can steal.
+
+Key Concepts:
+
+To solve this problem, we can use dynamic programming. We will create an array dp of size n+1, 
+where n is the number of houses. The value at index i in the dp array will represent the maximum amount of money the thief can steal from the first i houses.
+
+
+1.We define a class Solution which contains the main function FindMaxSum.
+
+2.The FindMaxSum function takes two parameters: an array arr representing the amount of money in each house, and an integer n representing the number of houses.
+
+3.Inside the FindMaxSum function, we initialize the dp array of size n+1.
+
+4.We handle the base cases where n is 1 or 2. If n is 1, we return the amount of money in the first house. 
+If n is 2, we return the maximum amount of money between the first two houses.
+
+5.We initialize the first two values of the dp array based on the base cases.
+
+6.We iterate from index 3 to n and calculate the maximum amount of money the thief can steal at each house. We use the formula dp[i] = max(arr[i-1] + dp[i-2], dp[i-1]).
+
+7.Finally, we return the maximum amount of money the thief can steal, which is stored in dp[n].
+
+
+T.C.: O(N), As we are running only one loop of size N.
+S.C.: O(N), As we have made a dp array of size N.
+
+*/
+
+class Solution
+{
+    //Function to find the maximum money the thief can get.
+    public int FindMaxSum(int arr[], int n)
+    {
+      int[] dp = new int[n+1];
+       
+       if(n==1){
+           return arr[0];
+       }
+       
+       
+       if(n==2){
+           return Math.max(arr[0],arr[1]);
+       }
+       
+       dp[1]=arr[0];
+       dp[2]=Math.max(arr[0],arr[1]);
+       
+       
+       int i=3;
+       
+       while(i<=n){
+           dp[i]=Math.max(arr[i-1]+dp[i-2],dp[i-1]);
+           i++;
+       }
+      
+       return dp[n];
+    }
+}
