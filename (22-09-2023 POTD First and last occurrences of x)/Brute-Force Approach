@@ -1,0 +1,75 @@
+/*
+Java Simple Approach:
+
+Finding First and Last Indices of a Number in an Array:
+
+Introduction:
+
+We are asked to find the first and last indices of a given number in an array. 
+It takes an array of integers, the size of the array, and the number to be searched as input. 
+The program then returns an ArrayList containing the indices of the number in the array.
+
+Key Concepts:
+
+ArrayList: An ArrayList is a dynamic array in Java that can grow or shrink in size. It provides methods to add, remove, and access elements.
+Looping: The code uses a while loop to iterate through the array and find the indices of the number.
+Conditional Statements: The code uses if statements to check if the current element is equal to the given number and to break out of the loop if the number is found.
+
+Explanation:
+
+
+1.The "find" method starts by initializing variables i and j to 0 and a boolean flag to false. It also creates an empty ArrayList called "al" to store the indices.
+
+2.The while loop iterates through the array until i reaches the end. Inside the loop, it checks if the current element (arr[i]) is equal to the given number (X). 
+If they are equal, it means we have found an occurrence of the number(first Occurence).
+
+3.In this case, the variable j is set to i-1, and the index i is added to the ArrayList "al". 
+Then, another while loop is used to find consecutive occurrences of the number. It increments j and checks if the next element is also equal to the number.
+If it is, the flag is set to true, and j is incremented again. This process continues until a different element is encountered or the end of the array is reached.
+
+4.After the while loop, the index j (which represents the last occurrence of the number) is added to the ArrayList "al".
+
+5.If the flag is still false after the while loop, it means the number was not found in the array. 
+In this case, -1 is added to the beginning and the second position of the ArrayList "al" to indicate that the number was not found.
+
+6.Finally, the ArrayList "al" is returned as the result.
+
+
+
+T.C.: O(N), doing only single traversal of the array.
+S.C.: O(1), no extra space is used.
+
+Note: Though this brute-force approach are passing all the testcases but the efficient approach uses Binary Search, that we have discussed in another file.
+*/
+
+class GFG
+{
+    ArrayList<Integer> find(int arr[], int n, int X)
+    {
+        int i =0;
+        int j =0;
+        boolean flag = false;
+        
+        ArrayList<Integer> al = new ArrayList<>();
+        
+        while(i!=n){
+            if(arr[i]==X){
+                j=i-1;
+                al.add(i);
+                while(j<n-1&&arr[j+1]==X){
+                    flag=true;
+                    j++;
+                }
+            }
+            if(flag==true) break;
+            i++;
+        }
+        al.add(j);
+        
+        if(flag==false){
+            al.add(0,-1);
+            al.add(1,-1);
+        }
+        return al;
+    }
+}
