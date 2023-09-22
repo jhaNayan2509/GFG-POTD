@@ -1,0 +1,71 @@
+/*
+Java Simple Approach:
+
+Finding First and Last Occurrence of an Element in an Array:
+
+Introduction:
+
+We are asked to find the first and last occurrence of a given element in a sorted array. 
+It uses a binary search algorithm to efficiently locate the desired element.
+
+Key Concepts:
+
+Binary Search: The code utilizes the binary search algorithm to divide the array into smaller subarrays and search for the desired element. 
+It compares the middle element of the subarray with the target element and narrows down the search range accordingly.
+
+
+>> It contains three methods: "first", "last", and "find".
+
+1.The "first" method takes in the array, the lower and upper bounds of the search range, the target element, and the size of the array. 
+It recursively searches for the first occurrence of the target element in the array.
+
+2.The "last" method is similar to the "first" method but searches for the last occurrence of the target element.
+
+3.The "find" method takes in the array, the size of the array, and the target element. 
+It creates an ArrayList to store the first and last occurrences of the target element. 
+It calls the "first" and "last" methods and adds the results to the ArrayList before returning it.
+
+This is an efficient way to find the first and last occurrences of a given element in a sorted array using a binary search algorithm.
+By utilizing recursion and dividing the array into smaller subarrays, the code can quickly locate the desired element and return its indices.
+
+
+T.C.:  O(logn), As both the first and last function uses binary search so the time complexity of both of them is O(logn), So overall complexity becomes O(logn).
+S.C.:  O(logn), The size of the recursive call stack.
+*/
+
+class GFG {
+    public int first(int[] arr, int low, int high, int x, int n) {
+        if (high >= low) {
+            int mid = low + (high - low) / 2;
+            if ((mid == 0 || x > arr[mid - 1]) && arr[mid] == x)
+                return mid;
+            else if (x > arr[mid])
+                return first(arr, (mid + 1), high, x, n);
+            else
+                return first(arr, low, (mid - 1), x, n);
+        }
+        return -1;
+    }
+
+    public int last(int[] arr, int low, int high, int x, int n) {
+        if (high >= low) {
+            int mid = low + (high - low) / 2;
+            if ((mid == n - 1 || x < arr[mid + 1]) && arr[mid] == x)
+                return mid;
+            else if (x < arr[mid])
+                return last(arr, low, (mid - 1), x, n);
+            else
+                return last(arr, (mid + 1), high, x, n);
+        }
+        return -1;
+    }
+
+    ArrayList<Integer> find(int arr[], int n, int x)
+    {
+        ArrayList<Integer> al = new ArrayList<>();
+        
+        al.add(0,first(arr, 0, n - 1, x, n));
+        al.add(1,last(arr, 0, n - 1, x, n));
+        return al;
+    }
+}
