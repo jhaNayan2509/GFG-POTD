@@ -1,0 +1,67 @@
+/*
+Java Simple Approach:
+
+1.The function starts by checking if the size of the array is 1.
+If it is, then the only element in the array is considered as the equilibrium point, and the function returns 1.
+
+2.If the size of the array is greater than 1, the function proceeds to calculate the sum of all elements in the array. 
+This is done by iterating over the array and adding each element to the "sum" variable.
+
+3.After calculating the sum, the function initializes two variables: "leftSum" and "rightSum". 
+"leftSum" is set to the first element of the array, and "rightSum" is calculated by subtracting the sum of the second element and "leftSum" from the total sum.
+
+4.The function then enters a loop that iterates from the second element to the second-to-last element of the array. 
+In each iteration, it checks if "leftSum" is equal to "rightSum".
+If they are equal, it means that the current index is the equilibrium point, and the function returns the index plus 1.
+
+5.If "leftSum" is not equal to "rightSum", 
+the function updates "leftSum" by adding the current element and updates "rightSum" by subtracting the next element and "leftSum" from the total sum.
+
+6.After the loop ends, if no equilibrium point is found, the function returns -1.
+
+
+T.C.: O(N), As we are traversing the whole array twice so the time is 2*N approximately O(N).
+S.C.: O(1), As we are not using any extra space.
+*/
+
+class Solution { 
+   
+    // Function to find equilibrium point in the array.
+    public static int equilibriumPoint(long arr[], int n) {
+
+         if(n==1){
+             return 1;
+         }
+         
+         
+         
+         int i=0;
+         long sum =0;
+         
+         
+         
+         while(i!=n){
+             sum+=arr[i];
+             i++;
+         }
+         
+         long leftSum=arr[0];
+         long rightSum=sum-(arr[1]+leftSum);
+         
+         
+         i=1;
+         
+         while(i!=n-1){
+             if(leftSum==rightSum){
+                 return i+1;
+             }
+             
+             leftSum+=arr[i];
+             rightSum=sum-(arr[i+1]+leftSum);
+             
+             i++;
+         }
+         
+         return -1;
+    }
+}
