@@ -22,7 +22,7 @@ Implementation:
 6.If no equilibrium point is found, we return -1.
 
 
-T.C.:  O(N2), As we are running a nested loop.
+T.C.:  O(N^2), As we are running a nested loop.
 S.C.:  O(1), As we are not using any extra space.
 
 */
