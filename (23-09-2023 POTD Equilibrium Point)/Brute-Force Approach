@@ -1,0 +1,54 @@
+/*
+Java Simple Approach:
+
+Finding Equilibrium Point in an Array:
+
+Introduction:
+
+In this problem, we are given an array of integers and we need to find the equilibrium point in the array. 
+An equilibrium point is a position in the array where the sum of elements on the left side is equal to the sum of elements on the right side.
+
+Key Concepts:
+To find the equilibrium point, we need to iterate through each element in the array and 
+calculate the sum of elements on the left side and the sum of elements on the right side. If the left sum is equal to the right sum, we have found the equilibrium point.
+
+Implementation:
+
+1.We define a class named "Solution" which contains a static method named "equilibriumPoint".
+2.The "equilibriumPoint" method takes two parameters: an array of long integers "a" and an integer "n" representing the size of the array.
+3.Inside the method, we iterate through each element in the array using a for loop.
+4.For each element, we calculate the sum of elements on the left side and the sum of elements on the right side.
+5.If the left sum is equal to the right sum, we return the index of the equilibrium point (i+1).
+6.If no equilibrium point is found, we return -1.
+
+
+T.C.:  O(N2), As we are running a nested loop.
+S.C.:  O(1), As we are not using any extra space.
+
+*/
+
+class Solution {
+    // Function to find equilibrium point in the array.
+    
+    public static int equilibriumPoint(long[] a, int n) {
+       
+        for (int i = 0; i < n; ++i) {
+           
+            long leftsum = 0;
+            for (int j = 0; j < i; j++)
+                leftsum += a[j];
+     
+           
+            long rightsum = 0;
+            for (int j = i + 1; j < n; j++)
+                rightsum += a[j];
+     
+            
+            if (leftsum == rightsum)
+                return i+1;
+        }
+     
+        
+        return -1;
+    }
+}
