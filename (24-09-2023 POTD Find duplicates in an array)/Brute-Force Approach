@@ -1,0 +1,72 @@
+/*
+Java Simple Approach:
+
+There is a static method named duplicates that takes an array arr and its size n as input parameters. 
+The method returns an ArrayList of integers.
+
+The method begins by creating an empty ArrayList named al to store the duplicate elements.
+
+Next, it initializes a variable i to 0. This variable will be used as an index to iterate through the array.
+
+The code then enters a while loop that continues until i is not equal to n. This loop is used to iterate through each element of the array.
+
+Inside the while loop, a variable j is initialized to i+1. This variable will be used to compare the current element with the subsequent elements of the array.
+
+Another while loop is used to compare the current element at index i with the subsequent elements starting from index j. This loop continues until j is not equal to n.
+
+Inside the inner while loop, an if condition is used to check if the current element at index i is equal to the element at index j and
+if the ArrayList al does not already contain the current element. If both conditions are true,
+it means that the current element is a duplicate and it is not already present in the ArrayList.
+In that case, the current element is added to the ArrayList using the add method.
+
+After adding the duplicate element to the ArrayList, the inner while loop is terminated using the break statement.
+
+After the inner while loop, the index i is incremented by 1 to move to the next element of the array.
+
+This process continues until all elements of the array have been compared for duplicates.
+
+After the while loop, an if condition is used to check if the ArrayList al is empty.
+If it is empty, it means that no duplicates were found in the array. 
+In that case, the value -1 is added to the ArrayList using the add method and the ArrayList is returned.
+
+If the ArrayList is not empty, it means that duplicates were found in the array. 
+The ArrayList is then sorted in ascending order using the Collections.sort method and returned.
+
+In summary, the given code takes an array of integers and its size as input and finds and returns a list of duplicate elements from the array. 
+If no duplicates are found, it returns an ArrayList containing -1.
+
+
+T.C.: O(N^2), As in the worst case their can be n/2 elements in the array which are duplicate and for each element at index i , we check all elements from i+1 to n-1.
+S.C.: O(N), As in the worst case their can be n/2 elements which are repeating so space complexity becomes O(N).
+
+Note: The extra space is need to be consider for the arraylist which we will return.
+*/
+class Solution {
+    public static ArrayList<Integer> duplicates(int arr[], int n) {
+        ArrayList<Integer> al = new ArrayList<>();
+        
+        int i=0;
+        
+        while(i!=n){
+            int j = i+1;
+            
+            while(j!=n){
+                if(arr[i]==arr[j]&&!al.contains(arr[i])){
+                    al.add(arr[i]);
+                    break;
+                }
+                j++;
+            }
+            i++;
+        }
+        
+        
+        
+        if(al.isEmpty()){
+            al.add(-1);
+            return al;
+        }
+        Collections.sort(al);
+        return al;
+    }
+}
