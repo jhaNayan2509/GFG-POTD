@@ -1,0 +1,92 @@
+/*
+Java Simple Approach:
+
+Basic Idea: 
+
+The idea in this is to use a priority queue.
+The idea is to start with the maximum possible sum combination, which is obtained by taking the last elements of both arrays.
+Then, iteratively explore the next largest sum combinations by considering elements from either array A or B, which can be the possible candidates for maximum sum.
+
+
+Steps:
+
+1.Create an empty ArrayList called al to store the maximum combinations.
+
+2.Sort both arr and brr arrays using the Arrays.sort() method. This step ensures that the arrays are in ascending order.
+
+3.Create a PriorityQueue called pq to store the sums of the combinations. The PriorityQueue is used to keep track of the k largest sums.
+
+4.Initialize a variable i with the value of n-1. This variable will be used to iterate through the arr array from the last element to the first.
+Start a while loop that runs as long as i is greater than or equal to 0.
+
+5.Inside the while loop, initialize a variable j with the value of n-1. 
+This variable will be used to iterate through the brr array from the last element to the first.
+
+6.Start another while loop that runs as long as j is greater than or equal to 0.
+
+7.Calculate the sum of the current elements from arr and brr arrays: sum = arr[i] + brr[j].
+
+8.Check if the size of the PriorityQueue pq is less than k. If it is, add the sum to the PriorityQueue using the pq.add() method.
+If the size of the PriorityQueue pq is equal to k, compare the sum with the smallest element in the PriorityQueue using the pq.peek() method.
+
+9.If the sum is greater than the smallest element in the PriorityQueue, remove the smallest element using the pq.poll() method 
+and add the sum to the PriorityQueue using the pq.add() method.
+
+10.If the sum is not greater than the smallest element in the PriorityQueue, break out of the inner while loop.
+
+11.Decrement j by 1 to move to the next element in the brr array.
+Decrement i by 1 to move to the next element in the arr array.
+
+12.After both while loops have finished, iterate through the PriorityQueue pq using a while loop.
+Remove each element from the PriorityQueue using the pq.poll() method and add it to the ArrayList al.
+
+13.Sort the ArrayList al in descending order using the Collections.sort() method with the Collections.reverseOrder() comparator.
+Return the ArrayList al as the result.
+
+
+
+In summary, the code implementation finds the maximum k combinations of elements from two given arrays by sorting the arrays,
+using a PriorityQueue to keep track of the k largest sums, and returning the result in descending order.
+
+
+
+T.C.: O(NlogN), As we are soting the array whose complexity is O(NlogN) and we are also running a loop of size K and inside it we insert and
+take the element out from the priority queue and set whose complexity is O(logN), so total complexity becomes O(NlogN).
+
+S.C.: O(N), As we have use priority queue, set and an arraylist to store the answer, So total space complexity becomes O(N).
+
+*/
+class Solution {
+    static List<Integer> maxCombinations(int n, int k, int arr[], int brr[]) {
+        List<Integer> al = new ArrayList<>();
+        Arrays.sort(arr);
+        Arrays.sort(brr);
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        
+        int i=n-1;
+        
+        while(i>=0){
+            int j = n-1;
+            while(j>=0){
+                int sum = arr[i]+brr[j];
+                if(pq.size()<k){
+                    pq.add(sum);
+                }
+                else if (pq.peek()<sum){
+                    pq.poll();
+                    pq.add(sum);
+                }
+                else break;
+                j--;
+            }
+            i--;
+        }
+        
+        while(!pq.isEmpty()){
+            al.add(pq.poll());
+        }
+        
+        Collections.sort(al,Collections.reverseOrder());
+        return al;
+    }
+}
