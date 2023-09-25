@@ -50,10 +50,10 @@ using a PriorityQueue to keep track of the k largest sums, and returning the res
 
 
 
-T.C.: O(NlogN), As we are soting the array whose complexity is O(NlogN) and we are also running a loop of size K and inside it we insert and
-take the element out from the priority queue and set whose complexity is O(logN), so total complexity becomes O(NlogN).
+T.C.: O(NlogN), As we are sorting the array whose complexity is O(NlogN) and we are also running a loop of size K and inside it we insert in arraylist and
+take the element out from the priority queue whose complexity is O(logN), so total complexity becomes O(NlogN).
 
-S.C.: O(N), As we have use priority queue, set and an arraylist to store the answer, So total space complexity becomes O(N).
+S.C.: O(N), As we have use priority queue, and an arraylist to store the answer, So total space complexity becomes O(N).
 
 */
 class Solution {
