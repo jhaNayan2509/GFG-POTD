@@ -1,0 +1,79 @@
+/*
+Java Simple Approach:
+
+Basic Idea:
+The idea in this is to generate all the possible sum combinations. Sort them in descending order and return the top K sum combination with the maximum sum.
+
+Steps:
+
+1.Initialize two ArrayLists: al and ans. These lists will be used to store the calculated sums and the final answer, respectively.
+
+2.Initialize a variable i to 0. This variable will be used as an index for iterating over the array A[].
+
+3.Start a while loop that continues until i is not equal to N. This loop will iterate over each element in the array A[].
+
+4.Inside the first while loop, initialize a variable j to 0. This variable will be used as an index for iterating over the array B[].
+
+5.Start a nested while loop that continues until j is not equal to N. This loop will iterate over each element in the array B[].
+
+6.Inside the nested while loop, calculate the sum of the current elements from A[] and B[] using the formula sum = A[i] + B[j].
+
+7.Add the calculated sum to the al ArrayList using the add() method.
+
+8.Increment the value of j by 1 to move to the next element in the array B[].
+
+9.Increment the value of i by 1 to move to the next element in the array A[].
+
+10.After the nested while loop ends, the al ArrayList will contain all the possible combinations of sums.
+
+11.Sort the al ArrayList in descending order using the Collections.sort() method with the Collections.reverseOrder() comparator.
+
+12.Re-initialize the value of i to 0. This variable will be used as an index for iterating over the ans ArrayList.
+
+13.Start a while loop that continues until i is not equal to K. This loop will iterate K times.
+
+14.Inside the while loop, add the element at index i from the al ArrayList to the ans ArrayList using the add() method.
+
+15.Increment the value of i by 1 to move to the next index in the ans ArrayList.
+
+16.After the while loop ends, the ans ArrayList will contain the K largest sums from the al ArrayList.
+
+17.Finally, return the ans ArrayList as the result of the maxCombinations method.
+
+In summary, the given code implements a method that calculates all possible combinations of sums between elements in two arrays A[] and B[]. 
+It then sorts the sums in descending order and returns the K largest sums as a list of integers.
+
+T.C.: O(N^2), As we are running a nested for loop of size N*N and sorting the array whose complexity is O(NlogN), So total complexity is O(N*N).
+S.C.: O(N*N), As we are making two arraylists one to store all the combinations and one to store maximum sum combination, So total space complexity becomes O(N*N).
+
+
+*/
+class Solution {
+    static List<Integer> maxCombinations(int N, int K, int A[], int B[]) {
+        List<Integer> al = new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
+        
+        int i=0;
+        
+        while(i!=N){
+            int j =0;
+            while(j!=N){
+                int sum = A[i]+B[j];
+                al.add(sum);
+                j++;
+            }
+            i++;
+        }
+        
+        Collections.sort(al,Collections.reverseOrder());
+        
+        i=0;
+        
+        while(i!=K){
+            ans.add(i,al.get(i));
+            i++;
+        }
+        
+        return ans;
+    }
+}
