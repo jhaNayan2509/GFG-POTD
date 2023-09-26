@@ -1,0 +1,96 @@
+/*
+Java Simple Approach:
+
+Brute-Force:
+For this problem , i am not going to discuss brute-force separately because it is so simple that anybody can do it.
+Idea: The idea in this is to generate all the possible quadruples by using 4 nested loops.
+
+T.C.: O(N^4), As we are running four nested for loops of size N, So the total complexity becomes O(N4).
+S.C.: O(No. of quadruples), As we need to use set for storing unique quadruples and an arraylist to store our final result.
+
+
+//Now come to Optimized Approach based on Sorting + Two Pointers Concepts:
+
+Idea: The idea is to sort the array first,
+then iterate through the array with two outer loops to select the first two elements of the quadruple. For the remaining two elements, use two pointers approach.
+
+
+Steps:
+1.The method fourSum takes two parameters: an array of integers arr and an integer k.
+It returns a list of lists (ArrayList<ArrayList<Integer>>) containing all unique quadruplets from the array that sum up to k.
+
+2.Inside the method, an ArrayList called ans is created to store the resulting quadruplets.
+
+3.The arr array is sorted using the Arrays.sort method. Sorting the array helps in finding unique quadruplets and improves the efficiency of the algorithm.
+
+4.The variable n is assigned the length of the arr array.
+
+5.The first loop iterates over the array from index 0 to n-3. This loop is responsible for selecting the first element of the quadruplet.
+
+6.Inside the first loop, a second loop is used to select the second element of the quadruplet. 
+It starts from the next index of the first loop variable (i+1) and goes up to n-2.
+
+7.Within the second loop, two pointers left and right are initialized. 
+The left pointer starts from the next index of the second loop variable (j+1), and the right pointer starts from the last index of the array (n-1).
+
+8.A while loop is used to find the remaining two elements of the quadruplet.
+The loop continues as long as the left pointer is less than the right pointer.
+
+9.Inside the while loop, the sum of the four elements (arr[i]+arr[j]+arr[left]+arr[right]) is checked against the target sum k.
+
+10.If the sum is equal to k, a new ArrayList called temp is created to store the quadruplet.
+The quadruplet is added to temp using the Arrays.asList method.
+
+11.The temp list is then checked if it already exists in the ans list. If it doesn't exist, it is added to the ans list.
+
+12.After adding the quadruplet to ans, the left pointer is incremented and the right pointer is decremented to find the next possible quadruplet.
+
+13.If the sum is less than k, the left pointer is incremented to increase the sum.
+
+14.If the sum is greater than k, the right pointer is decremented to decrease the sum.
+
+15.The second loop continues until all possible combinations of the second and third elements are checked.
+
+16.The first loop continues until all possible combinations of the first and second elements are checked.
+
+17.Finally, the ans list containing all unique quadruplets is returned.
+
+In summary, the fourSum method uses nested loops and two pointers to find all unique quadruplets from the given array that sum up to the target value. 
+The method sorts the array to optimize the search process. The resulting quadruplets are stored in an ArrayList and returned as the final result.
+
+
+T.C.: O(N^3),As we are sorting the array whose complexity is O(NlogN) and 
+we have two nested loops of size N, and within them, we use two-pointer techniques to find pairs, which takes O(N) time, So total complexity becomes O(N^3).
+S.C.: O(No. of quadruples), As we are using an arraylist to store our results.
+
+*/
+class Solution {
+    public ArrayList<ArrayList<Integer>> fourSum(int[] arr, int k) {
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+        Arrays.sort(arr);
+        int n = arr.length;
+        for(int i=0;i<n-3;i++)
+        {
+            for(int j=i+1;j<n-2;j++)
+            {
+                int left=j+1,right=n-1;
+                while(left<right)
+                {
+                    if(arr[i]+arr[j]+arr[left]+arr[right]==k)
+                    {
+   ArrayList<Integer> temp=new ArrayList<Integer>(Arrays.asList(arr[i],arr[j],arr[left],arr[right]));
+                        if(!ans.contains(temp))
+                            ans.add(temp);
+                        left++;
+                        right--;
+                    }
+                    else if(arr[i]+arr[j]+arr[left]+arr[right]<k)
+                        left++;
+                    else
+                        right--;
+                }
+            }
+        }
+        return ans;
+    }
+}
